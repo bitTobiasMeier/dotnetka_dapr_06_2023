@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: bitdotnetprodapr 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitdotnetprodapr
+  template:
+    metadata:
+      labels:
+        app: bitdotnetprodapr 
+    spec:
+      containers:
+        - name: bitdotnetprodapr 
+          image: daprsamples.azurecr.io/bitdotnetprodapr
+          ports:
+          - containerPort: 80

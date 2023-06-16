@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantService", "RestaurantService\RestaurantService.csproj", "{06EE96A1-F84E-4938-8961-10BFA99BA1C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platform", "Platform\Platform.csproj", "{D789FD45-9688-4009-96AE-11574EBA1DDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantService.Contracts", "RestaurantService.Contracts\RestaurantService.Contracts.csproj", "{509D8356-3D45-45DB-A87B-CCD0C2F300F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06EE96A1-F84E-4938-8961-10BFA99BA1C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06EE96A1-F84E-4938-8961-10BFA99BA1C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06EE96A1-F84E-4938-8961-10BFA99BA1C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06EE96A1-F84E-4938-8961-10BFA99BA1C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D789FD45-9688-4009-96AE-11574EBA1DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D789FD45-9688-4009-96AE-11574EBA1DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D789FD45-9688-4009-96AE-11574EBA1DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D789FD45-9688-4009-96AE-11574EBA1DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509D8356-3D45-45DB-A87B-CCD0C2F300F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509D8356-3D45-45DB-A87B-CCD0C2F300F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509D8356-3D45-45DB-A87B-CCD0C2F300F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509D8356-3D45-45DB-A87B-CCD0C2F300F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

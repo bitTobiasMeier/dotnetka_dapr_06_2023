@@ -1,0 +1,98 @@
+# Deploy to Azure Kubernetes Service
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '6ea65798-21ba-482d-bf1f-31fa9aefafea'
+  imageRepository: 'bitdotnetprodapr'
+  containerRegistry: 'daprsamples.azurecr.io'
+  dockerfilePath: '**/Dockerfile'
+  tag: '$(Build.BuildId)'
+  imagePullSecret: 'daprsamples59889d5d-auth'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+  # Name of the new namespace being created to deploy the PR changes.
+  k8sNamespaceForPR: 'review-app-$(System.PullRequest.PullRequestId)'
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+
+    - task: Docker@2
+      displayName: Build and push Dinner to container registry
+      inputs:
+        command: buildAndPush        
+        dockerfile: 'Dinner/Dockerfile'
+        buildContext: "$(Build.SourcesDirectory)"
+        containerRegistry: $(dockerRegistryServiceConnection)
+        repository: 'daprdinner/dinner'
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: Build and push RestaurantService to container registry
+      inputs:
+        command: buildAndPush        
+        dockerfile: 'RestaurantService/Dockerfile'
+        buildContext: "$(Build.SourcesDirectory)"
+        containerRegistry: $(dockerRegistryServiceConnection)
+        repository: 'daprdinner/restaurantservice'
+        tags: |
+          $(tag)
+
+    - task: Docker@2
+      displayName: Build and push TableActor to container registry
+      inputs:
+        command: buildAndPush        
+        dockerfile: 'TableActorService/Dockerfile'
+        buildContext: "$(Build.SourcesDirectory)"
+        containerRegistry: $(dockerRegistryServiceConnection)
+        repository: 'daprdinner/tableactorservice'
+        tags: |
+          $(tag)
+
+    - task: Docker@2
+      displayName: Build and push OrderActor to container registry
+      inputs:
+        command: buildAndPush        
+        dockerfile: 'OrderActorService/Dockerfile'
+        buildContext: "$(Build.SourcesDirectory)"
+        containerRegistry: $(dockerRegistryServiceConnection)
+        repository: 'daprdinner/orderactorservice'
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: Build and push KitchenActor to container registry
+      inputs:
+        command: buildAndPush        
+        dockerfile: 'KitchenActorService/Dockerfile'
+        buildContext: "$(Build.SourcesDirectory)"
+        containerRegistry: $(dockerRegistryServiceConnection)
+        repository: 'daprdinner/kitchenactorservice'
+        tags: |
+          $(tag)
+          
+    #- task: CopyFiles@2
+    #  inputs:
+    #    SourceFolder: './deploy/'
+    #    Contents: '**'
+    #    TargetFolder: 'manifests'
+
+    - upload: deploy
+      artifact: deploy
+    

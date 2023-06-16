@@ -1,0 +1,47 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: restaurantservice
+  labels:
+    app: restaurantservice
+spec:
+  selector:
+    app: restaurantservice
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurantservice
+  labels:
+    app: restaurantservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurantservice
+  template:
+    metadata:
+      labels:
+        app: restaurantservice
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "restaurantservice"
+        dapr.io/app-port: "80"
+        dapr.io/config: "tracing"
+    spec:
+      containers:
+      - name: restaurantservice
+        image: daprsamples.azurecr.io/daprdinner/restaurantservice:24816
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: dinnersecret
+        
