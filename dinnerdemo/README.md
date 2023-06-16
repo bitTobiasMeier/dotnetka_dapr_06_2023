@@ -27,4 +27,4 @@ _______________________
 
 
 
-(c) 2023: BridgingIT GmbH
+(c) BridgingIT GmbH 2023
